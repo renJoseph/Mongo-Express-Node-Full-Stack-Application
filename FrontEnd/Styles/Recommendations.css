@@ -1,0 +1,13 @@
+.list-pad{
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+.cnta{
+    text-align: center !important;
+    align-content: center !important;
+    align-self: center !important;
+    vertical-align: middle !important;
+}
+.width-fit{
+    width: fit-content;
+}

@@ -1,0 +1,39 @@
+// Used this to test getting all users worked correctly
+# router.get('/', (req, res) => {
+#     res.send('hello world!')
+
+# })
+GET http://localhost:8080/users/
+
+###
+// Testing user search works correctly
+GET http://localhost:8080/users/5dcd803b70dce75ada5eb7eb
+###
+// Testing create user works properly
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "firstName" : "check",
+    "lastName" : "check",
+    "email" : "checkyo",
+    "password" : "check",
+    "subscription" : "check"
+}
+
+###
+// Testing delete works properly
+DELETE http://localhost:8080/users/5dcd801970dce75ada5eb7e9
+
+###
+// Testing post works properly
+POST http://localhost:8080/users/5dcd803b70dce75ada5eb7eb
+Content-Type: application/json
+
+{
+    "firstName" : "check",
+    "lastName" : "check",
+    "email" : "check",
+    "password" : "check",
+    "subscription" : "kcehc"
+}

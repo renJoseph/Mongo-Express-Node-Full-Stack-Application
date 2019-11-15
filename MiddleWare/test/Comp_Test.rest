@@ -1,0 +1,41 @@
+// Used this to test getting all comps worked correctly
+# router.get('/', (req, res) => {
+#     res.send('hello world!')
+
+# })
+GET http://localhost:8080/comps
+
+###
+// Testing comp search works correctly
+GET http://localhost:8080/comps/5dcc4391feebbe1acd3bb429
+###
+// Testing add comp works properly
+POST http://localhost:8080/comps
+Content-Type: application/json
+
+{
+    "model" : "check",
+    "processor" : "check",
+    "screenSize" : "check",
+    "storage" : "check",
+    "ram" : "check",
+    "graphicsCard" : "check"
+}
+
+###
+// Testing delete works properly
+DELETE http://localhost:8080/comps/5dcc4998f879394fad9fcd27
+
+###
+// Testing post works properly
+POST http://localhost:8080/comps/5dcc498bf879394fad9fcd26
+Content-Type: application/json
+
+{
+    "model" : "check",
+    "processor" : "check",
+    "screenSize" : "check",
+    "storage" : "check",
+    "ram" : "check",
+    "graphicsCard" : "chickenpoo"
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Sign Up</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <!-- Custom styles for this template -->
+</head>
+
+<body>
+    <div class="container" style="align-content: center !important; max-width: 600px;">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <a class="text-muted" href="Landing Page.html">Ren's Webpage</a>
+                </div>
+                <div class="col-4 text-center">
+                    <a class="blog-header-logo text-dark" href="Landing Page.html">Top Products</a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="Register.html">Register</a>
+                            <a class="dropdown-item" onclick="openLogInPage()">Sign in</a>
+                            <a class="dropdown-item" onclick="openProfile()">Profile</a>
+                            <a class="dropdown-item" onclick="logOut()">Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-scroller py-1 mb-2">
+            <nav class="nav d-flex justify-content-between">
+                <a class="p-2 text-muted" href="Landing Page.html">Home</a>
+                <a class="p-2 text-muted" href="Recommendations.html">Recommendations</a>
+                <a class="p-2 text-muted" href="Information.html">Information</a>
+                <a class="p-2 text-muted" href="Products.html">Products</a>
+            </nav>
+        </div>
+
+        <div style="text-align: center !important" class="jumbotron text-white rounded bg-dark">
+            <div class="px-0">
+                <h1 style="text-align: center;" class="display-4 font-italic">Sign Up</h1>
+                <p style="text-align: center;" class="lead my-3">Please fill out the form below to register an account
+                    with Top Products and access our exclusive services</p>
+                <hr>
+                <div name="myForm">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Forename</label>
+                        <div class="col-sm-10">
+                            <input id="firstName" class="form-control" placeholder="Enter first name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Surname</label>
+                        <div class="col-sm-10">
+                            <input id="lastName" class="form-control" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input id="email" class="form-control" placeholder="example@email.com">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input id="password" type="password" class="form-control" id="inputPassword"
+                                placeholder="Password">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Confirm</label>
+                        <div class="col-sm-10">
+                            <input id="verifyPass" type="password" class="form-control" id="inputPassword"
+                                placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Subscription</label>
+                        </div>
+                        <select class="custom-select" id="subscription">
+                            <option value="Standard">Standard</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Unlimited">Unlimited</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="container">
+                                <input type="checkbox" class="form-check-input" id="checkbox">
+                                <label class="form-check-label" for="checkbox">Remember Me</label>
+                            </div>
+                            <br>
+                        </div>
+                        <input class="btn btn-primary" onclick="createUser()" value="Create Account">
+                    </div>
+                </div>
+            </div>
+            <script src="Scripts/usersAPI.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+</body>
+
+</html>
