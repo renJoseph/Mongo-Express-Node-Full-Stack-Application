@@ -11,23 +11,27 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id', getUser, (req, res) => {
+// router.get('/:id', getUserByID, (req, res) => {
+//     res.json(req.user)
+// })
+
+router.get('/:email', getUserByEmail, (req, res) => {
     res.json(req.user)
 })
 
 router.post('/', async (req, res) => {
-     const userX = new User()
+    const userX = new User()
     Object.keys(req.body).forEach(k => userX[k] = req.body[k]);
     try {
         const newUser = await userX.save()
         res.status(201).json(newUser)
     } catch (err) {
         res.status(400).json({ message: err.message })
-
     }
 })
 
-router.post('/:id', getUser, async (req, res) => {
+// router.post('/:id', getUserByID, async (req, res) => {
+router.post('/:email', getUserByEmail, async (req, res) => {
     Object.keys(req.body).forEach(k => req.user[k] = req.body[k]);
 
     try {
@@ -38,18 +42,22 @@ router.post('/:id', getUser, async (req, res) => {
     }
 })
 
-router.delete('/:id', getUser, async (req, res) => {
+// router.delete('/:id', getUserByID, async (req, res) => {
+router.delete('/:email', getUserByEmail, async (req, res) => {
     try {
         await req.user.remove()
-        res.json({ message: 'Deleted User: ' + user.id })
+        // res.json({ message: 'Deleted User : ' + user.id })
+        res.json({ message: 'Deleted account with email : ' + user.email })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
 })
 
-async function getUser(req, res, next) {
+// async function getUserByID(req, res, next) {
+async function getUserByEmail(req, res, next) {
     try {
-        user = await User.findById(req.params.id)
+        // user = await User.findById(req.params.id)
+        user = await User.findOne({ email: req.params.email })
         if (user == null) {
             return res.status(404).json({ message: 'Cannot find user' })
         }

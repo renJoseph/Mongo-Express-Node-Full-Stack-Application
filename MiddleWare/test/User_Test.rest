@@ -7,7 +7,7 @@ GET http://localhost:8080/users/
 
 ###
 // Testing user search works correctly
-GET http://localhost:8080/users/5dcd803b70dce75ada5eb7eb
+GET http://localhost:8080/users/check
 ###
 // Testing create user works properly
 POST http://localhost:8080/users
@@ -16,24 +16,24 @@ Content-Type: application/json
 {
     "firstName" : "check",
     "lastName" : "check",
-    "email" : "checkyo",
+    "email" : "checkin",
     "password" : "check",
     "subscription" : "check"
 }
 
 ###
 // Testing delete works properly
-DELETE http://localhost:8080/users/5dcd801970dce75ada5eb7e9
+DELETE http://localhost:8080/users/checkin
 
 ###
 // Testing post works properly
-POST http://localhost:8080/users/5dcd803b70dce75ada5eb7eb
+POST http://localhost:8080/users/check
 Content-Type: application/json
 
 {
     "firstName" : "check",
     "lastName" : "check",
-    "email" : "check",
+    "email" : "checkywecky",
     "password" : "check",
     "subscription" : "kcehc"
 }

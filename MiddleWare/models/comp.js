@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const compSchema = new mongoose.Schema({
     compNo: {
-        type: Number,
+        type: String,
         required: true
     },
     image: {
@@ -19,7 +19,7 @@ const compSchema = new mongoose.Schema({
         required: true
     },
     size: {
-        type: Number,
+        type: String,
         required: true
     },
     storage: {

@@ -1,5 +1,6 @@
 let localData;
 let sessionData;
+let loggedIn;
 let firstName;
 let lastName;
 let email;
@@ -8,21 +9,35 @@ let verifyPass;
 let subscription;
 
 // Value capture/generation
-function setInputValues() {
-    if (localData === true) {
-        document.getElementById("firstName").value = localFirstName
-        document.getElementById("lastName").value = localLastName
-        document.getElementById("email").value = localEmail
-        document.getElementById("password").value = localPassword
-        document.getElementById("verifyPass").value = localPassword
-        document.getElementById("subscription").value = localSubscription
-    } if (sessionData === true) {
+function saveLocalStorageToSession() {
+    if (localData) {
+        sessionFirstName = localFirstName
+        sessionLastName = localLastName
+        sessionEmail = localEmail
+        sessionPassword = localPassword
+        sessionSubscription = localSubscription
+        let sessionData = true
+    }
+}
+
+function setProfileFormValues() {
+    if (sessionData) {
         document.getElementById("firstName").value = sessionFirstName
         document.getElementById("lastName").value = sessionLastName
         document.getElementById("email").value = sessionEmail
         document.getElementById("password").value = sessionPassword
         document.getElementById("verifyPass").value = sessionPassword
         document.getElementById("subscription").value = sessionSubscription
+    }
+}
+
+function setLoginFormValues() {
+    if (localData) {
+        document.getElementById("email").value = localEmail
+        document.getElementById("password").value = localPassword
+    } if (sessionData) {
+        document.getElementById("email").value = localEmail
+        document.getElementById("password").value = localPassword
     }
 }
 
@@ -48,21 +63,26 @@ function verifyUser() {
         )
 }
 
-function passwordsSame() {
-    if (inputPassword === inputVerifyPass) {
+function formVerification() {
+    getInputValues()
+    if ((firstName) && (lastName) && (email) && (password) && (verifyPass) && (password.value === verifyPass.value)) {
+        let formComplete;
+    } else {
+        window.alert("Form inputs were invalid")
+    }
+}
+
+// Data persistence
+function rememberMeTicked() {
+    if (document.getElementById(checkbox).value === checked) {
         return true
     } else {
         return false
     }
 }
 
-// Login/Data storage functions
-function rememberMeTicked() {
-    let
-}
-
-function rememberMe() {
-    if (rememberMeTicked === true) {
+function rememberValues() {
+    if (rememberMeTicked) {
         let localFirstName = localStorage.inputFirstName
         let localLastName = localStorage.inputLastName
         let localEmail = localStorage.inputEmail
@@ -70,15 +90,40 @@ function rememberMe() {
         let localSubscription = localStorage.mySubscription
         let y = true
         let localData = localStorage.y
-        let sessionData = localStorage.y
     }
 }
+
+// Login related page opens
+function registerPage() {
+    if (sessionData === false) {
+        window.location.href = "Register.html"
+    } else {
+        window.alert("You must log out if you wish to create a new account")
+    }
+}
+
 
 function openLogInPage() {
     if (sessionData === false) {
         window.location.href = "Signin.html"
     } else {
         window.alert("You are already signed in")
+    }
+}
+
+function openProfile() {
+    if (loggedIn) {
+        window.location.href = "Profile.html"
+    }
+    else {
+        window.alert("You must be logged in to access your profile")
+    }
+}
+
+// Login/out functions
+function autoLogIn() {
+    if (hasSessionData) {
+
     }
 }
 
@@ -90,7 +135,7 @@ function logIn() {
         let sessionPassword = sessionStorage.inputPassword
         let sessionSubscription = sessionStorage.inputSubscription
         let x = true
-        let sessionData = sessionStorage.x
+        let hasSessionData = sessionStorage.x
         return true
     } else {
         window.alert("Credentials could not be verified");
@@ -99,40 +144,35 @@ function logIn() {
 }
 
 function logOut() {
-    if (sessionData === true) {
+    if (hasSessionData) {
         localStorage.clear();
         sessionStorage.clear();
-        sessionData = false;
-        localData = false;
+        x = false
+        loggedIn = sessionData.x;
         window.alert("Signed out, to remain signed in you will have to reselect 'remember me'")
+        return loggedIn 
     } else {
         window.alert("You are already logged out")
     }
 }
 
-function openProfile() {
-    if (loggedIn === true) {
-        window.location.href = "Profile.html"
-    }
-    else {
-        window.alert("You must be logged in to access your profile")
-    }
-}
-
 // CRUD functionality
 function createUser() {
-    getInputValues()
-    fetch('http://localhost:8080/users/', {
-        method: 'POST',
-        body: JSON.stringify({
-            "firstName": "\"" + firstName.value + "\"",
-            "lastName": "\"" + lastName.value + "\"",
-            "email": "\"" + email.value + "\"",
-            "password": "\"" + password.value + "\"",
-            "subscription": "\""+ subscription.value + "\"",
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    }); 
+    if (formComplete) {
+        getInputValues()
+        storeLocalValues()
+        fetch('http://localhost:8080/users/', {
+            method: 'POST',
+            body: JSON.stringify({
+                "firstName": "\"" + firstName.value + "\"",
+                "lastName": "\"" + lastName.value + "\"",
+                "email": "\"" + email.value + "\"",
+                "password": "\"" + password.value + "\"",
+                "subscription": "\"" + subscription.value + "\"",
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
 }
 
 function allUsers() {
@@ -141,28 +181,28 @@ function allUsers() {
     }
 }
 
-function findbyID() {
-    fetch('http://localhost:8080/users/' + userID), {
+function findByEmail() {
+    fetch('http://localhost:8080/users/' + email), {
         method: 'GET'
     }
 }
 
 function updateUser() {
-    fetch('http://localhost:8080/users/' + userID, {
+    fetch('http://localhost:8080/users/' + email, {
         method: 'POST',
         body: JSON.stringify({
             "firstName": "\"" + firstName.value + "\"",
             "lastName": "\"" + lastName.value + "\"",
             "email": "\"" + email.value + "\"",
             "password": "\"" + password.value + "\"",
-            "subscription": "\""+ subscription.value + "\"",
+            "subscription": "\"" + subscription.value + "\"",
         }),
         headers: { 'Content-Type': 'application/json' }
     });
 }
 
 function deleteUser() {
-    fetch('http://localhost:8080/users/' + userID, {
+    fetch('http://localhost:8080/users/' + email, {
         method: 'DELETE'
     })
 }
