@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const db = mongoose.connection
 const usersRouter = require('./routes/users')
 const compsRouter = require('./routes/comps')
+const favesRouter = require('./routes/faves')
 
 app.use(cors())
 
@@ -20,5 +21,7 @@ app.use(express.json())
 app.use('/users', usersRouter)
 
 app.use('/comps', compsRouter)
+
+app.use('/faves', favesRouter)
 
 app.listen(8080, () => console.log('Server started'))

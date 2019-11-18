@@ -50,10 +50,11 @@
                             Account
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="Register.html">Register</a>
-                            <a class="dropdown-item" onclick="openLogInPage()">Sign in</a>
-                            <a class="dropdown-item" onclick="openProfile()">Profile</a>
-                            <a class="dropdown-item" onclick="logOut()">Log out</a>
+                            <a class="dropdown-item" onclick="registerPage()">Register</a>
+              <a class="dropdown-item" onclick="openLogInPage()">Sign in</a>
+              <a class="dropdown-item" onclick="openProfile()">Profile</a>
+              <a class="dropdown-item" onclick="openSaved()">Saved Products</a>
+              <a class="dropdown-item" onclick="logOut()">Log out</a>
                         </div>
                     </div>
                 </div>
@@ -67,10 +68,10 @@
                 <a class="p-2 text-muted" href="Products.html">Products</a>
             </nav>
         </div>
-    </div>
-    <div style="text-align: center;" class="container">
+
         <div>
-            <div class="jumbotron row p-4 p-md-5 text-white rounded bg-dark">
+            <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark" style="text-align: center;">
+                <div class="row" style="margin: 0% !important;">
                 <div class="col list-pad">
                     <h1 class="display-4 font-italic">Understanding Your Needs</h1>
                     <p class="lead my-3">To help you understand the hardware specifications for you, complete the form below to recieve a personal
@@ -175,7 +176,7 @@
                             aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <a class="btn btn-primary" href="Information.html" >What does this mean?</a>
-                    <button class="btn btn-primary">Find Products</button>
+                    <button class="btn btn-primary" onclick="findRecommendedProducts()" >Find Products</button>
 
                     </p>
                 </div>

@@ -3,31 +3,31 @@
 #     res.send('hello world!')
 
 # })
-GET http://localhost:8080/users/
+http://localhost:8080/users/get/
 
 ###
 // Testing user search works correctly
-GET http://localhost:8080/users/check
+http://localhost:8080/users/get/cooey/check
 ###
 // Testing create user works properly
-POST http://localhost:8080/users
+POST http://localhost:8080/users/create/
 Content-Type: application/json
 
 {
     "firstName" : "check",
     "lastName" : "check",
-    "email" : "checkin",
+    "email" : "coo",
     "password" : "check",
     "subscription" : "check"
 }
 
 ###
 // Testing delete works properly
-DELETE http://localhost:8080/users/checkin
+DELETE http://localhost:8080/users/coo
 
 ###
-// Testing post works properly
-POST http://localhost:8080/users/check
+// Testing update works properly
+POST http://localhost:8080/users/update/cgckgu
 Content-Type: application/json
 
 {

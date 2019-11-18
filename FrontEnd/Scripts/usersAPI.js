@@ -1,80 +1,69 @@
-let localData;
-let sessionData;
+let local;
+let session;
 let loggedIn;
-let firstName;
-let lastName;
-let email;
-let password;
-let verifyPass;
-let subscription;
+let verified;
+let firstName = document.getElementById("firstName")
+let lastName = document.getElementById("lastName")
+let email = document.getElementById("email")
+let password = document.getElementById("password")
+let verifyPass = document.getElementById("verifyPass")
+let subscription = document.getElementById("subscription")
 
 // Value capture/generation
 function saveLocalStorageToSession() {
-    if (localData) {
-        sessionFirstName = localFirstName
-        sessionLastName = localLastName
-        sessionEmail = localEmail
-        sessionPassword = localPassword
-        sessionSubscription = localSubscription
-        let sessionData = true
+    if (local) {
+        sessionStorage.firstName = localStorage.firstName;
+        sessionStorage.lastName = localStorage.lastName;
+        sessionStorage.email = localStorage.email;
+        sessionStorage.password = localStorage.password;
+        sessionStorage.subscription = localStorage.subscription;
     }
 }
 
 function setProfileFormValues() {
-    if (sessionData) {
-        document.getElementById("firstName").value = sessionFirstName
-        document.getElementById("lastName").value = sessionLastName
-        document.getElementById("email").value = sessionEmail
-        document.getElementById("password").value = sessionPassword
-        document.getElementById("verifyPass").value = sessionPassword
-        document.getElementById("subscription").value = sessionSubscription
+    if (loggedIn) {
+        firstName.value = sessionStorage.firstName
+        lastName.value = sessionStorage.lastName
+        email.value = sessionStorage.email
+        password.value = sessionStorage.password
+        subscription.value = sessionStorage.subscription
     }
 }
 
 function setLoginFormValues() {
-    if (localData) {
-        document.getElementById("email").value = localEmail
-        document.getElementById("password").value = localPassword
-    } if (sessionData) {
-        document.getElementById("email").value = localEmail
-        document.getElementById("password").value = localPassword
+    if (rememberMe) {
+        email.value = localStorage.email
+        password.value = localStorage.password
     }
 }
 
-function getInputValues() {
-    firstName = document.getElementById("firstName")
-    lastName = document.getElementById("lastName")
-    email = document.getElementById("email")
-    password = document.getElementById("password")
-    verifyPass = document.getElementById("verifyPass")
-    subscription = document.getElementById("subscription")
-}
-
-// Verification
-function verifyUser() {
-    allUsers()
-        .then(res => res.json())
-        .then(json.Search.forEach(i => {
-            if ((i.email === inputEmail) && (i.password === inputPassword)) {
-                return true
-            }
-            return false
-        })
-        )
+async function verifyUser() {
+    const response = await fetch('http://localhost:8080/users/get/' + email.value + "/" + password.value);
+    if (response.status === 200) {
+        window.alert("Woo")
+        return true
+    } else {
+        window.alert("sad")
+        return false
+    }
 }
 
 function formVerification() {
     getInputValues()
+    let veri;
     if ((firstName) && (lastName) && (email) && (password) && (verifyPass) && (password.value === verifyPass.value)) {
-        let formComplete;
+        veri = true
+        return veri;
     } else {
         window.alert("Form inputs were invalid")
+        veri = false
+        return veri;
     }
 }
 
 // Data persistence
 function rememberMeTicked() {
-    if (document.getElementById(checkbox).value === checked) {
+    if (document.getElementById("checkbox").value === checked) {
         return true
     } else {
         return false
@@ -82,20 +71,17 @@ function rememberMeTicked() {
 }
 
 function rememberValues() {
-    if (rememberMeTicked) {
-        let localFirstName = localStorage.inputFirstName
-        let localLastName = localStorage.inputLastName
-        let localEmail = localStorage.inputEmail
-        let localPassword = localStorage.inputPassword
-        let localSubscription = localStorage.mySubscription
-        let y = true
-        let localData = localStorage.y
-    }
+    localStorage.firstName = document.getElementById("firstName").value;
+    localStorage.lastName = document.getElementById("lastName").value;
+    localStorage.email = document.getElementById("email").value;
+    localStorage.password = document.getElementById("password").value;
+    localStorage.subscription = document.getElementById("subscription").value;
+    localStorage.rememberMe = true
 }
 
 // Login related page opens
 function registerPage() {
-    if (sessionData === false) {
+    if (!sessionStorage.loggedIn) {
         window.location.href = "Register.html"
     } else {
         window.alert("You must log out if you wish to create a new account")
@@ -104,7 +90,7 @@ function registerPage() {
 
 
 function openLogInPage() {
-    if (sessionData === false) {
+    if (!sessionStorage.loggedIn) {
         window.location.href = "Signin.html"
     } else {
         window.alert("You are already signed in")
@@ -112,7 +98,7 @@ function openLogInPage() {
 }
 
 function openProfile() {
-    if (loggedIn) {
+    if (sessionStorage.loggedIn) {
         window.location.href = "Profile.html"
     }
     else {
@@ -120,37 +106,43 @@ function openProfile() {
     }
 }
 
+function openSaved() {
+    if (sessionStorage.loggedIn) {
+        window.location.href = "Saved Products.html"
+    }
+    else {
+        window.alert("You must be logged in to access your saved products")
+    }
+    
+}
+
 // Login/out functions
 function autoLogIn() {
-    if (hasSessionData) {
-
+    if (localStorage.rememberMe) {
+        saveLocalStorageToSession();
+        sessionStorage.loggedIn = true;
     }
 }
 
-function logIn() {
-    if (verifyUser() === true) {
-        let sessionFirstName = sessionStorage.inputFirstName
-        let sessionLastName = sessionStorage.inputLastName
-        let sessionEmail = sessionStorage.inputEmail
-        let sessionPassword = sessionStorage.inputPassword
-        let sessionSubscription = sessionStorage.inputSubscription
-        let x = true
-        let hasSessionData = sessionStorage.x
-        return true
+async function verifyUser() {
+    let response = await fetch('http://localhost:8080/users/get/' + email.value + "/" + password.value)
+        .then()
+    if (response.ok) {
+        window.alert("Successfully logged in");
+        sessionStorage.loggedIn = true;
+        return true;
     } else {
-        window.alert("Credentials could not be verified");
+        window.alert("Could not verify credentials")
         return false
     }
 }
 
 function logOut() {
-    if (hasSessionData) {
+    if (loggedIn) {
         localStorage.clear();
         sessionStorage.clear();
-        x = false
-        loggedIn = sessionData.x;
-        window.alert("Signed out, to remain signed in you will have to reselect 'remember me'")
-        return loggedIn 
+        sessionStorage.loggedIn = false;
+        window.alert("Signed out")
     } else {
         window.alert("You are already logged out")
     }
@@ -158,21 +150,18 @@ function logOut() {
 
 // CRUD functionality
 function createUser() {
-    if (formComplete) {
-        getInputValues()
-        storeLocalValues()
-        fetch('http://localhost:8080/users/', {
-            method: 'POST',
-            body: JSON.stringify({
-                "firstName": "\"" + firstName.value + "\"",
-                "lastName": "\"" + lastName.value + "\"",
-                "email": "\"" + email.value + "\"",
-                "password": "\"" + password.value + "\"",
-                "subscription": "\"" + subscription.value + "\"",
-            }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-    }
+    fetch('http://localhost:8080/users/', {
+        method: 'POST',
+        body: JSON.stringify({
+            "firstName": firstName.value,
+            "lastName": lastName.value,
+            "email": email.value,
+            "password": password.value,
+            "subscription": subscription.value,
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+    window.location.href = "Signin.html"
 }
 
 function allUsers() {
@@ -182,27 +171,29 @@ function allUsers() {
 }
 
 function findByEmail() {
-    fetch('http://localhost:8080/users/' + email), {
+    fetch('http://localhost:8080/users/' + email.value), {
         method: 'GET'
     }
 }
 
 function updateUser() {
-    fetch('http://localhost:8080/users/' + email, {
+    fetch('http://localhost:8080/users/update/' + email.value, {
         method: 'POST',
         body: JSON.stringify({
-            "firstName": "\"" + firstName.value + "\"",
-            "lastName": "\"" + lastName.value + "\"",
-            "email": "\"" + email.value + "\"",
-            "password": "\"" + password.value + "\"",
-            "subscription": "\"" + subscription.value + "\"",
+            "firstName": firstName.value,
+            "lastName": lastName.value,
+            "email": email.value,
+            "password": password.value,
+            "subscription": subscription.value,
         }),
         headers: { 'Content-Type': 'application/json' }
     });
+    window.location.href = "#"
+    window.alert("Update Successful")
 }
 
 function deleteUser() {
-    fetch('http://localhost:8080/users/' + email, {
+    fetch('http://localhost:8080/users/' + email.value, {
         method: 'DELETE'
     })
 }

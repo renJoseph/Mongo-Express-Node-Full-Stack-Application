@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 
-router.get('/', async (req, res) => {
+router.get('/get/', async (req, res) => {
     try {
         const users = await User.find()
         res.json(users)
@@ -11,15 +11,15 @@ router.get('/', async (req, res) => {
     }
 })
 
-// router.get('/:id', getUserByID, (req, res) => {
-//     res.json(req.user)
-// })
-
-router.get('/:email', getUserByEmail, (req, res) => {
-    res.json(req.user)
+router.get('/get/:email/:password', getUserByEmail, async (req, res) => {
+    try {
+        res.status(200).json(req.user)
+    } catch (err){
+        res.status(404).json({ message : err.message})
+    }
 })
 
-router.post('/', async (req, res) => {
+router.post('/create/', async (req, res) => {
     const userX = new User()
     Object.keys(req.body).forEach(k => userX[k] = req.body[k]);
     try {
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
 })
 
 // router.post('/:id', getUserByID, async (req, res) => {
-router.post('/:email', getUserByEmail, async (req, res) => {
+router.post('/update/:email', getUserByEmail, async (req, res) => {
     Object.keys(req.body).forEach(k => req.user[k] = req.body[k]);
 
     try {

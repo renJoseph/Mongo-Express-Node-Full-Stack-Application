@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
-const compSchema = new mongoose.Schema({
+const faveSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
     compNo: {
         type: String,
         required: true
@@ -44,4 +48,4 @@ const compSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Comp', compSchema)
+module.exports = mongoose.model('Fave', faveSchema)

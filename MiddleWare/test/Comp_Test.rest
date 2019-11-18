@@ -3,39 +3,47 @@
 #     res.send('hello world!')
 
 # })
-GET http://localhost:8080/comps
+GET http://localhost:8080/comps/get/
 
 ###
 // Testing comp search works correctly
-GET http://localhost:8080/comps/5dcc4391feebbe1acd3bb429
+GET http://localhost:8080/comps/get/5dd17b3e8d43160e91cb0263
 ###
 // Testing add comp works properly
-POST http://localhost:8080/comps
+POST http://localhost:8080/comps/create/
 Content-Type: application/json
 
 {
-    "model" : "check",
-    "processor" : "check",
-    "screenSize" : "check",
-    "storage" : "check",
-    "ram" : "check",
-    "graphicsCard" : "check"
+    "compNo" : "3",
+    "image" : "https://i2.wp.com/laptopmedia.com/wp-content/uploads/2017/10/miix-320-1.jpg?fit=300%2C293&amp;ssl=1%22%20alt=%22Lenovo%20IdeaPad%20Miix%20320",
+    "model" : "Lenovo IdeaPad Miix 320",
+    "processor" : "Intel Core i5",
+    "size" : "13.3",
+    "storage" : "256 GB",
+    "ram" : "6 GB",
+    "graphics" : "Intel UHD 620",
+    "price" : "£420",
+    "priceRange" : "2"
 }
 
 ###
 // Testing delete works properly
-DELETE http://localhost:8080/comps/5dcc4998f879394fad9fcd27
+DELETE http://localhost:8080/comps/5dd1c5a1b9274135b44db9aa
 
 ###
 // Testing post works properly
-POST http://localhost:8080/comps/5dcc498bf879394fad9fcd26
+POST http://localhost:8080/comps/update/test
 Content-Type: application/json
 
 {
-    "model" : "check",
-    "processor" : "check",
-    "screenSize" : "check",
-    "storage" : "check",
-    "ram" : "check",
-    "graphicsCard" : "chickenpoo"
+    "compNo" : "boopy",
+    "image" : "test",
+    "model" : "test",
+    "processor" : "test",
+    "size" : "test",
+    "storage" : "test",
+    "ram" : "test",
+    "graphics" : "test",
+    "price" : "test",
+    "priceRange" : "test"
 }

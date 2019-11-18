@@ -39,10 +39,11 @@
                             Account
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="Register.html">Register</a>
-                            <a class="dropdown-item" onclick="openLogInPage()">Sign in</a>
-                            <a class="dropdown-item" onclick="openProfile()">Profile</a>
-                            <a class="dropdown-item" onclick="logOut()">Log out</a>
+                            <a class="dropdown-item" onclick="registerPage()">Register</a>
+              <a class="dropdown-item" onclick="openLogInPage()">Sign in</a>
+              <a class="dropdown-item" onclick="openProfile()">Profile</a>
+              <a class="dropdown-item" onclick="openSaved()">Saved Products</a>
+              <a class="dropdown-item" onclick="logOut()">Log out</a>
                         </div>
                     </div>
                 </div>
@@ -107,8 +108,8 @@
                         </select>
                     </div>
                     <div>
-                        <input class="btn btn-primary" onsubmit="updateUser();" type="submit" value="Submit changes">
-                        <input class="btn btn-primary" onsubmit="deleteUser();" type="submit" value="Delete Account">
+                        <button class="btn btn-primary" onclick="updateUser()">Update Details</button>
+                        <button class="btn btn-primary" onclick="deleteUser()">Delete Account</button>
                     </div>
                 </div>
             </div>

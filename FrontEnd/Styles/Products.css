@@ -1,0 +1,9 @@
+.img-max-sizes{
+    width: 100% !important;
+    max-width: 368px !important;
+    max-height: 225px !important;
+}
+
+.white-text{
+    color: white !important;
+}

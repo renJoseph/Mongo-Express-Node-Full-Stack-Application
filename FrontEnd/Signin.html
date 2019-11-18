@@ -54,10 +54,11 @@
                             Account
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="Register.html">Register</a>
+                            <a class="dropdown-item" onclick="registerPage()">Register</a>
                             <a class="dropdown-item" onclick="openLogInPage()">Sign in</a>
                             <a class="dropdown-item" onclick="openProfile()">Profile</a>
-                            <a class="dropdown-item" onclick="logOut()" >Log out</a>
+                            <a class="dropdown-item" onclick="openSaved()">Saved Products</a>
+                            <a class="dropdown-item" onclick="logOut()">Log out</a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,6 @@
                 <p style="text-align: center;" class="lead my-3">To view your previous recommendations and view your
                     account details, please log in below</p>
                 <hr style="color: white;">
-                <form>
                     <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
@@ -99,12 +99,11 @@
                     </div>
                     <div class="form-group row align-items-center">
                         <div class="col">
-                            <input class="btn btn-primary" type="submit" value="Log in">
-                            <input class="btn btn-primary" type="submit" value="Sign Up">
+                            <button class="btn btn-primary" onclick="verifyUser();">Login</button>
+                            <a class="btn btn-primary" href="Register.html">Sign Up</a>
                         </div>
 
                     </div>
-                </form>
             </div>
 
 

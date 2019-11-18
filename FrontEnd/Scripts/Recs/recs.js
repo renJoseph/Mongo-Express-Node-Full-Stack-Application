@@ -1,9 +1,23 @@
-const purpose = document.getElementById("purpose");
-const capacity = document.getElementById("capacity");
-const speed = document.getElementById("speed");
-const videoQuality = document.getElementById("videoQuality");
-const pricing = document.getElementById("pricing");
-sessionStorage.removeItem("madeReq");
+let purpose = document.getElementById("purpose");
+let capacity = document.getElementById("capacity");
+let speed = document.getElementById("speed");
+let videoQuality = document.getElementById("videoQuality");
+let pricing = document.getElementById("pricing");
+let processor = document.getElementById("processor")
+let size = document.getElementById("size")
+let storage = document.getElementById("storage")
+let ram = document.getElementById("ram")
+let graphics = document.getElementById("graphics")
+
+let madeReq;
+if (sessionStorage.madeReq || sessionStorage.recProductSearch) {
+    sessionStorage.removeItem("madeReq");
+    sessionStorage.removeItem("processor");
+    sessionStorage.removeItem("size");
+    sessionStorage.removeItem("storage");
+    sessionStorage.removeItem("ram");
+    sessionStorage.removeItem("graphics");
+}
 
 function fieldsComplete() {
     if ((purpose) && (capacity) && (speed) && (videoQuality) && (pricing)) {
@@ -100,17 +114,18 @@ function inputRecs() {
         document.getElementById("ram").value = ramRec() + " GB"
         document.getElementById("graphics").value = graphicsRec()
         sessionStorage.setItem("madeReq", "true");
-        return madeReq;
+        return sessionStorage.madeReq;
     }
 }
 
 function findRecommendedProducts() {
-    if (madeReq) {
-        sessionStorage.setItem("processor", "\"" + processor + "\"")
-        sessionStorage.setItem("size", "\"" + size + "\"")
-        sessionStorage.setItem("storage", "\"" + storage + "\"")
-        sessionStorage.setItem("ram", "\"" + ram + "\"")
-        sessionStorage.setItem("processor", "\"" + graphics + "\"")
+    if (sessionStorage.madeReq) {
+        sessionStorage.setItem("processor", processor)
+        sessionStorage.setItem("size", size)
+        sessionStorage.setItem("storage", storage)
+        sessionStorage.setItem("ram", ram)
+        sessionStorage.setItem("graphics", graphics)
+        sessionStorage.setItem("recProdSearch", "true")
         window.location.href = "Products.html"
     } else {
         window.alert("You need to have submitted a reccomendation request before you can find products")

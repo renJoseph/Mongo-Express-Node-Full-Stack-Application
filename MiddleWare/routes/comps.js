@@ -3,7 +3,7 @@ const router = express.Router()
 const Comp = require('../models/comp')
 
 // find all
-router.get('/', async (req, res) => {
+router.get('/get/', async (req, res) => {
     try {
         const comps = await Comp.find()
         res.json(comps)
@@ -13,11 +13,11 @@ router.get('/', async (req, res) => {
 })
 
 // find by comp number
-router.get('/:id', getComp, (req, res) => {
+router.get('/get/:id', getComp, (req, res) => {
     res.json(req.comp)
 })
 
-router.post('/', async (req, res) => {
+router.post('/create/', async (req, res) => {
      const compX = new Comp()
     Object.keys(req.body).forEach(k => compX[k] = req.body[k]);
     try {
@@ -29,9 +29,8 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.post('/:id', getComp, async (req, res) => {
+router.post('/update/:id', getComp, async (req, res) => {
     Object.keys(req.body).forEach(k => req.comp[k] = req.body[k]);
-
     try {
         let updatedComp = await req.comp.save()
         res.json(updatedComp)
