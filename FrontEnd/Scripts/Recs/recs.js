@@ -120,11 +120,11 @@ function inputRecs() {
 
 function findRecommendedProducts() {
     if (sessionStorage.madeReq) {
-        sessionStorage.setItem("processor", processor)
+        sessionStorage.setItem("processor", processor.value)
         sessionStorage.setItem("size", size)
-        sessionStorage.setItem("storage", storage)
+        sessionStorage.setItem("storage", storage.value)
         sessionStorage.setItem("ram", ram)
-        sessionStorage.setItem("graphics", graphics)
+        sessionStorage.setItem("graphics", graphics.value)
         sessionStorage.setItem("recProdSearch", "true")
         window.location.href = "Products.html"
     } else {

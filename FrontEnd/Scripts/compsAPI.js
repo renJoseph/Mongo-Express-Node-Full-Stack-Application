@@ -10,33 +10,33 @@ if (sessionStorage.recProdSearch) {
     processor.value = (sessionStorage.getItem("processor") || '*')
     size.value = (sessionStorage.size || '*')
     storage.value = (sessionStorage.getItem("storage") || '*')
-    ram.value = (sessionStorage.ram || '*')
-    graphics.innerHTML = (sessionStorage.getItem("graphics") || '*')
+    ram.value = (sessionStorage.ram || '*');
+    graphics.value = (sessionStorage.getItem("graphics") || '*')
     sessionStorage.removeItem("recProdSearch")
 }
 // Saved comps crud
 function addFave() {
-    fetch('http://localhost:8080/users/', {
+    fetch('http://localhost:8080/faves/', {
         method: 'POST',
         body: JSON.stringify({
             "email" : sessionStorage.email,
             "compNo" : compNo.value,
             "image" : image.src,
-            "model" : "test",
-            "processor" : "test",
-            "size" : "test",
-            "storage" : "test",
-            "ram" : "test",
-            "graphics" : "test",
-            "price" : "test",
-            "priceRange" : "test"
+            "model" : model.value,
+            "processor" : processor.value,
+            "size" : size.value,
+            "storage" : storage.value,
+            "ram" : ram.value,
+            "graphics" : graphics.value,
+            "price" : price.value,
+            "priceRange" : priceRange.value
         }),
         headers: { 'Content-Type': 'application/json' }
     });
     window.location.href = "Signin.html"
 }
 
-function removeFace() {
+function removeFave() {
     fetch('http://localhost:8080/faves/' + email.value + compNo.value, {
         method: 'DELETE'
     })
@@ -140,7 +140,7 @@ function createCard(comp) {
     let button2 = document.createElement("a")
     button2.className = "btn btn-primary white-text"
     button2.innerText = "Save"
-    button2.onclick = save()
+    // button2.onclick = save()
     cardBody.appendChild(button2)
     document.getElementById('results-container').append(column);
 }

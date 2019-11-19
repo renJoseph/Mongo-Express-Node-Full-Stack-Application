@@ -19,6 +19,7 @@
     "chai-http": "^4.3.0",
     "dotenv": "^8.2.0",
     "mocha": "^6.2.2",
+    "nightwatch": "^1.2.4",
     "nodemon": "^1.19.4"
   },
   "directories": {

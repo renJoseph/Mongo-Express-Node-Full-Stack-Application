@@ -3,8 +3,28 @@ const router = express.Router()
 const Fave = require('../models/fave')
 
 // find all faves by user email
-router.get('/get/:email', getFave, (req, res) => {
-    res.json(req.fave)
+router.get('/get', (req, res) => {
+    // res.json(req.fave)
+
+    Fave.aggregate([
+        {
+          '$lookup': {
+            'from': 'users', 
+            'localField': 'userId', 
+            'foreignField': '_id', 
+            'as': 'theBloodyUser'
+          }
+        }, {
+          '$lookup': {
+            'from': 'comps', 
+            'localField': 'compId', 
+            'foreignField': '_id', 
+            'as': 'theBloodyComp'
+          }
+        }
+      ]).exec((err, data) => {  
+          res.send(data);
+      })
 })
 
 //add to faves

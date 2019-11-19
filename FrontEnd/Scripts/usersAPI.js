@@ -1,13 +1,16 @@
-let local;
-let session;
-let loggedIn;
-let verified;
-let firstName = document.getElementById("firstName")
-let lastName = document.getElementById("lastName")
-let email = document.getElementById("email")
-let password = document.getElementById("password")
-let verifyPass = document.getElementById("verifyPass")
-let subscription = document.getElementById("subscription")
+function setValues() {
+    let loggedIn;
+    let firstName = document.getElementById("firstName")
+    let lastName = document.getElementById("lastName")
+    let email = document.getElementById("email")
+    let password = document.getElementById("password")
+    let verifyPass = document.getElementById("verifyPass")
+    let subscription = document.getElementById("subscription")
+    let sfn = sessionStorage.firstName
+    let sln = sessionStorage.lastName
+    let sem = sessionStorage.email
+    let ssb = sessionStorage.subscription
+}
 
 // Value capture/generation
 function saveLocalStorageToSession() {
@@ -19,45 +22,17 @@ function saveLocalStorageToSession() {
         sessionStorage.subscription = localStorage.subscription;
     }
 }
-
 function setProfileFormValues() {
-    if (loggedIn) {
-        firstName.value = sessionStorage.firstName
-        lastName.value = sessionStorage.lastName
-        email.value = sessionStorage.email
-        password.value = sessionStorage.password
-        subscription.value = sessionStorage.subscription
-    }
+    if (sessionStorage.firstName) { document.getElementById("firstName").value = sessionStorage.firstName }
+    if (sessionStorage.lastName) { document.getElementById("lastName").value = sessionStorage.lastName }
+    if (sessionStorage.email) { document.getElementById("email").value = sessionStorage.email }
+    if (sessionStorage.subscription) { document.getElementById("subscription").value = sessionStorage.subscription }
 }
 
 function setLoginFormValues() {
     if (rememberMe) {
         email.value = localStorage.email
         password.value = localStorage.password
-    }
-}
-
-async function verifyUser() {
-    const response = await fetch('http://localhost:8080/users/get/' + email.value + "/" + password.value);
-    if (response.status === 200) {
-        window.alert("Woo")
-        return true
-    } else {
-        window.alert("sad")
-        return false
-    }
-}
-
-function formVerification() {
-    getInputValues()
-    let veri;
-    if ((firstName) && (lastName) && (email) && (password) && (verifyPass) && (password.value === verifyPass.value)) {
-        veri = true
-        return veri;
-    } else {
-        window.alert("Form inputs were invalid")
-        veri = false
-        return veri;
     }
 }
 
@@ -113,7 +88,7 @@ function openSaved() {
     else {
         window.alert("You must be logged in to access your saved products")
     }
-    
+
 }
 
 // Login/out functions
@@ -130,27 +105,27 @@ async function verifyUser() {
     if (response.ok) {
         window.alert("Successfully logged in");
         sessionStorage.loggedIn = true;
-        return true;
+        sessionStorage.email = document.getElementById("email").value
+        window.location.href = "Profile.html"
     } else {
         window.alert("Could not verify credentials")
-        return false
     }
 }
 
 function logOut() {
-    if (loggedIn) {
+    if (sessionStorage.loggedIn) {
         localStorage.clear();
         sessionStorage.clear();
-        sessionStorage.loggedIn = false;
         window.alert("Signed out")
+        window.location.href = "Landing Page.html"
     } else {
         window.alert("You are already logged out")
     }
 }
 
 // CRUD functionality
-function createUser() {
-    fetch('http://localhost:8080/users/', {
+async function createUser() {
+    let response = await fetch('http://localhost:8080/users/create', {
         method: 'POST',
         body: JSON.stringify({
             "firstName": firstName.value,
@@ -160,8 +135,18 @@ function createUser() {
             "subscription": subscription.value,
         }),
         headers: { 'Content-Type': 'application/json' }
-    });
-    window.location.href = "Signin.html"
+    }).then()
+    if (response.ok) {
+        localStorage.firstName, firstName.value
+        localStorage.lastName = lastName.value
+        localStorage.email = email.value
+        localStorage.password = password.value
+        localStorage.subscription = subscription.value
+        window.alert("Successfully registered")
+        window.location.href = "Signin.html"
+    } else {
+        window.alert("Registration failed, please try again")
+    }
 }
 
 function allUsers() {
@@ -176,8 +161,8 @@ function findByEmail() {
     }
 }
 
-function updateUser() {
-    fetch('http://localhost:8080/users/update/' + email.value, {
+async function updateUser() {
+    let response = await fetch('http://localhost:8080/users/update/' + email.value, {
         method: 'POST',
         body: JSON.stringify({
             "firstName": firstName.value,
@@ -187,13 +172,29 @@ function updateUser() {
             "subscription": subscription.value,
         }),
         headers: { 'Content-Type': 'application/json' }
-    });
-    window.location.href = "#"
-    window.alert("Update Successful")
+    }).then()
+    if (response.ok) {
+        sessionStorage.setItem("firstName", firstName.value)
+        sessionStorage.setItem("lastName", lastName.value)
+        sessionStorage.setItem("email", email.value)
+        sessionStorage.setItem("password", password.value)
+        sessionStorage.setItem("subscription", subscription.value)
+        window.alert("Update Successful")
+        window.location.href = "#"
+    } else {
+        window.alert("Failed to update")
+    }
 }
 
-function deleteUser() {
-    fetch('http://localhost:8080/users/' + email.value, {
+async function deleteUser() {
+    let response = await fetch('http://localhost:8080/users/' + email.value, {
         method: 'DELETE'
-    })
+    }).then()
+    if (response.ok) {
+        window.alert("Account deleted")
+        logOut()
+        window.location.href = "Landing Page.html"
+    } else {
+        window.alert("Failed to delete")
+    }
 }

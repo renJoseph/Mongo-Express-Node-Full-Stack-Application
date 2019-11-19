@@ -1,0 +1,14 @@
+# Create new fave
+POST http://localhost:8080/faves/create
+
+###
+
+# Get by User email
+GET http://localhost:8080/faves/get
+
+### 
+
+# Delete fave
+Delete http://localhost:8080/faves/delete
+
+###
