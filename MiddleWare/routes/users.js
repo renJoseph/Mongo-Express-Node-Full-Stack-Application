@@ -30,7 +30,6 @@ router.post('/create/', async (req, res) => {
     }
 })
 
-// router.post('/:id', getUserByID, async (req, res) => {
 router.post('/update/:email', getUserByEmail, async (req, res) => {
     Object.keys(req.body).forEach(k => req.user[k] = req.body[k]);
 
@@ -53,10 +52,8 @@ router.delete('/:email', getUserByEmail, async (req, res) => {
     }
 })
 
-// async function getUserByID(req, res, next) {
 async function getUserByEmail(req, res, next) {
     try {
-        // user = await User.findById(req.params.id)
         user = await User.findOne({ email: req.params.email })
         if (user == null) {
             return res.status(404).json({ message: 'Cannot find user' })
